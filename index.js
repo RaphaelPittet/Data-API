@@ -31,7 +31,7 @@ app.post('/data/:customerId/:dialogId', (req, res) => {
     }
 
     chatHistory.push(chat)
-    console.log(chatHistory)
+
     res.sendStatus(200)
 });
 
@@ -47,14 +47,19 @@ app.post('/consents/:dialogId', (req,res) => {
     }else{
         // remove all history of the dialog with dialogId
         message = "history will be remove"
-        for (i=0; chatHistory.length; i++){
+        for (i=0; i<chatHistory.length; i++){
+            console.log("saved dialogId: " +chatHistory[i].dialogId);
+            console.log("params dialogId: " +dialogId);
+            console.log("--------------------------------");
+
+
             if(chatHistory[i].dialogId == dialogId){
+                console.log(chatHistory[i]);
                 chatHistory.splice(i,1);
                 i--;
             }
         }
     }
-    console.log(chatHistory);
     res.status(200).json({response: message});
 })
 
