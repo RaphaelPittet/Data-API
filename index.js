@@ -30,9 +30,8 @@ app.post('/data/:customerId/:dialogId', (req, res) => {
         timestamp: date
     }
 
-    chatHistory.push(chat)
-
-    res.sendStatus(200)
+    chatHistory.push(chat);
+    res.sendStatus(200);
 });
 
 app.post('/consents/:dialogId', (req,res) => {
@@ -63,6 +62,18 @@ app.post('/consents/:dialogId', (req,res) => {
 });
 
 
+// request for the coding challenge GET /data/(?language=:language|customerId=:customerId)
+app.get("/data/language=:language|customerId=:customerId", (req,res) => {
+    let language = req.url.slice((req.url.search("=")+1),req.url.search("%"));
+    let customerIdParam = req.url.search("customerId=");
+    let customerId = req.url.slice((customerIdParam+11), req.url.length);
+
+    
+    let message = 'customerid:'+ customerId + "// language:" + language ;
+    
+
+    res.status(200).json({response: message});
+});
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}!`))
 
