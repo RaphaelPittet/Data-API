@@ -22,6 +22,7 @@ app.post('/data/:customerId/:dialogId', (req, res) => {
     let dialogId = req.params.dialogId;
     let data = req.body;
     let date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+
     let chat = {
         dialogId: dialogId,
         customerId: customerId,
@@ -56,15 +57,13 @@ app.post('/consents/:dialogId', (req,res) => {
             }
         }
     }
-    console.log("______________________________________________________--")
-    console.log(chatHistory);
     res.status(200).json({response: message});
 });
 
 
 // request for the coding challenge GET /data/(?language=:language|customerId=:customerId)
 app.get("/data/language=:language|customerId=:customerId", (req,res) => {
-    let language = req.url.slice((req.url.search("=")+1),req.url.search("%"));
+    let language = req.url.slice((req.url.search("=")+1),req.url.search("customerId")-1);
     let customerIdParam = req.url.search("customerId=");
     let customerId = req.url.slice((customerIdParam+11), req.url.length);
 
